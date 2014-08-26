@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>vcee_t11</ProjectName>
+    <ProjectGuid>{023A7078-0EF5-4A6C-A3C0-1DE7CE84B3C4}</ProjectGuid>
+    <RootNamespace>vcee</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;GLUT_BUILDING_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>winmm.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="mouse_view.cpp" />
+    <ClCompile Include="OGL.cpp" />
+    <ClCompile Include="OGL2D.cpp" />
+    <ClCompile Include="titan11\kinematics_util.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="titan11\Kinematics\Robot\Leg\Arm.cpp" />
+    <ClCompile Include="titan11\Kinematics\Robot\Leg\Leg.cpp" />
+    <ClCompile Include="titan11\Math\Library\MathFunction.cpp" />
+    <ClCompile Include="titan11\Math\Library\MathMatrix.cpp" />
+    <ClCompile Include="titan11\Math\Matrix\Matrix.cpp" />
+    <ClCompile Include="titan11\Utility\MouseViewCtrl.cpp" />
+    <ClCompile Include="titan11\Graphics\OpenGL.cpp" />
+    <ClCompile Include="titan11\Kinematics\Robot\Robot.cpp" />
+    <ClCompile Include="titan11\Data\RobotData.cpp" />
+    <ClCompile Include="titan11\Kinematics\Titan.cpp" />
+    <ClCompile Include="titan11\Data\TitanData.cpp" />
+    <ClCompile Include="titan11\Graphics\TitanGraphics.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="titan11\Kinematics\Robot\Leg\Arm.h" />
+    <ClInclude Include="titan11\Kinematics\KineParameter.h" />
+    <ClInclude Include="titan11\Kinematics\Robot\Leg\Leg.h" />
+    <ClInclude Include="titan11\Kinematics\Robot\Leg\LegParameter.h" />
+    <ClInclude Include="titan11\Math\MathConstant.h" />
+    <ClInclude Include="titan11\Math\Library\MathFunction.h" />
+    <ClInclude Include="titan11\Math\MathGeometryType.h" />
+    <ClInclude Include="titan11\Math\MathLibrary.h" />
+    <ClInclude Include="titan11\Math\Library\MathMatrix.h" />
+    <ClInclude Include="titan11\Math\MathSymbol.h" />
+    <ClInclude Include="titan11\Math\Matrix\Matrix.h" />
+    <ClInclude Include="titan11\Utility\MouseViewCtrl.h" />
+    <ClInclude Include="titan11\Graphics\OpenGL.h" />
+    <ClInclude Include="titan11\Kinematics\Robot\Robot.h" />
+    <ClInclude Include="titan11\Data\RobotData.h" />
+    <ClInclude Include="titan11\Kinematics\Titan.h" />
+    <ClInclude Include="titan11\Data\TitanData.h" />
+    <ClInclude Include="titan11\Graphics\TitanGraphics.h" />
+    <ClInclude Include="titan11\Kinematics\TitanParameter.h" />
+    <ClInclude Include="titan11\Utility\Type.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\freeglut.lib" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

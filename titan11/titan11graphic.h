@@ -1,0 +1,6 @@
+//140825 TITAN XIのOpenGL表示のラッパー
+#ifndef TITAN11GRAPHIC_H
+#define TITAN11GRAPHIC_H
+#endif
+
+
