@@ -391,6 +391,7 @@ int main(int argc , char ** argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 
 	mv1.distance=20000;
+	mv1.azimuth=60;
 
 
 

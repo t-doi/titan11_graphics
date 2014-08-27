@@ -1,7 +1,5 @@
 //030930 マウスで視点変化
 //doi
-//#include "stdafx.h"
-//#define M_PI 3.141592 //VC++用
 #include "vcsetting.h"
 #include <math.h>
 #include "mouse_view.h"
