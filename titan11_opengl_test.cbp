@@ -44,6 +44,8 @@
 		<Unit filename="OGL.h" />
 		<Unit filename="OGL2D.cpp" />
 		<Unit filename="OGL2D.h" />
+		<Unit filename="d_trajectory/d_robot_trajectory.cpp" />
+		<Unit filename="d_trajectory/d_trajectory.cpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="mouse_view.cpp" />
 		<Unit filename="mouse_view.h" />

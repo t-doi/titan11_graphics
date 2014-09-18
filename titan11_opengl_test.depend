@@ -1,0 +1,196 @@
+# depslib dependency file v1.0
+1409099969 source:c:\users\d\documents\github\titan11_graphics\mouse_view.cpp
+	"vcsetting.h"
+	<math.h>
+	"mouse_view.h"
+
+1409045353 c:\users\d\documents\github\titan11_graphics\vcsetting.h
+	<windows.h>
+
+1264394738 c:\users\d\documents\github\titan11_graphics\mouse_view.h
+
+1408605967 source:c:\users\d\documents\github\titan11_graphics\ogl.cpp
+	"vcsetting.h"
+	<GL/gl.h>
+	<GL/glu.h>
+	"GL/glut.h"
+	<math.h>
+	"OGL.h"
+
+1066711260 c:\users\d\documents\github\titan11_graphics\gl\glut.h
+	"freeglut_std.h"
+
+1260880620 c:\users\d\documents\github\titan11_graphics\gl\freeglut_std.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1170674436 c:\users\d\documents\github\titan11_graphics\ogl.h
+	<windows.h>
+
+1408605584 source:c:\users\d\documents\github\titan11_graphics\ogl2d.cpp
+	"vcsetting.h"
+	<GL/gl.h>
+	<math.h>
+	"OGL2D.h"
+
+1264406670 c:\users\d\documents\github\titan11_graphics\ogl2d.h
+
+1254841944 source:c:\users\d\documents\github\titan11_graphics\resource.rc
+	"resource.h"
+	<windows.h>
+	<richedit.h>
+	<CommCtrl.h>
+
+1254841832 c:\users\d\documents\github\titan11_graphics\resource.h
+
+1242434660 source:c:\users\d\documents\github\titan11_graphics\titan11\data\robotdata.cpp
+	"RobotData.h"
+
+1242434660 c:\users\d\documents\github\titan11_graphics\titan11\data\robotdata.h
+	"../Kinematics/Robot/Robot.h"
+	"../Math/Matrix/Matrix.h"
+
+1268016602 c:\users\d\documents\github\titan11_graphics\titan11\kinematics\robot\robot.h
+	"Leg/Leg.h"
+	"../KineParameter.h"
+
+1242434620 c:\users\d\documents\github\titan11_graphics\titan11\kinematics\robot\leg\leg.h
+	"Arm.h"
+
+1242434620 c:\users\d\documents\github\titan11_graphics\titan11\kinematics\robot\leg\arm.h
+	"../../../Math/MathLibrary.h"
+	"../../../Utility/Type.h"
+	"../../KineParameter.h"
+
+1409028288 c:\users\d\documents\github\titan11_graphics\titan11\math\mathlibrary.h
+	"Matrix/Matrix.h"
+	"MathConstant.h"
+	"MathSymbol.h"
+	"MathGeometryType.h"
+	"Library/MathFunction.h"
+	"Library/MathMatrix.h"
+
+1242434628 c:\users\d\documents\github\titan11_graphics\titan11\math\matrix\matrix.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
+1242434630 c:\users\d\documents\github\titan11_graphics\titan11\math\mathconstant.h
+
+1242434630 c:\users\d\documents\github\titan11_graphics\titan11\math\mathsymbol.h
+	"Library/MathMatrix.h"
+
+1242434628 c:\users\d\documents\github\titan11_graphics\titan11\math\library\mathmatrix.h
+	<math.h>
+	"../MathConstant.h"
+	"../Matrix/Matrix.h"
+
+1242434630 c:\users\d\documents\github\titan11_graphics\titan11\math\mathgeometrytype.h
+
+1242434628 c:\users\d\documents\github\titan11_graphics\titan11\math\library\mathfunction.h
+	<math.h>
+	"../MathConstant.h"
+
+1242434654 c:\users\d\documents\github\titan11_graphics\titan11\utility\type.h
+
+1242434622 c:\users\d\documents\github\titan11_graphics\titan11\kinematics\kineparameter.h
+	"../Math/MathLibrary.h"
+
+1408960158 source:c:\users\d\documents\github\titan11_graphics\titan11\data\titandata.cpp
+	"TitanData.h"
+	"../Kinematics/Titan.h"
+
+1408960197 c:\users\d\documents\github\titan11_graphics\titan11\data\titandata.h
+	"RobotData.h"
+
+1242434622 c:\users\d\documents\github\titan11_graphics\titan11\kinematics\titan.h
+	"Robot/Robot.h"
+
+1409045379 source:c:\users\d\documents\github\titan11_graphics\titan11\graphics\opengl.cpp
+	"OpenGL.h"
+
+1254841270 c:\users\d\documents\github\titan11_graphics\titan11\graphics\opengl.h
+	<windows.h>
+	<gl/GL.h>
+	<gl/GLU.h>
+	<math.h>
+	<stdio.h>
+	"../Math/MathLibrary.h"
+
+1409044747 source:c:\users\d\documents\github\titan11_graphics\titan11\graphics\titangraphics.cpp
+	"TitanGraphics.h"
+
+1409043482 c:\users\d\documents\github\titan11_graphics\titan11\graphics\titangraphics.h
+	"OpenGL.h"
+	"../Data/TitanData.h"
+	"../Utility/MouseViewCtrl.h"
+
+1242434654 c:\users\d\documents\github\titan11_graphics\titan11\utility\mouseviewctrl.h
+	<math.h>
+	"../Math/MathLibrary.h"
+
+1242434620 source:c:\users\d\documents\github\titan11_graphics\titan11\kinematics\robot\leg\arm.cpp
+	"Arm.h"
+
+1332260516 source:c:\users\d\documents\github\titan11_graphics\titan11\kinematics\robot\leg\leg.cpp
+	"Leg.h"
+
+1268016792 source:c:\users\d\documents\github\titan11_graphics\titan11\kinematics\robot\robot.cpp
+	"Robot.h"
+
+1242434622 source:c:\users\d\documents\github\titan11_graphics\titan11\kinematics\titan.cpp
+	"Titan.h"
+
+1268036610 source:c:\users\d\documents\github\titan11_graphics\titan11\kinematics_util.cpp
+	"../titan11/Kinematics/Titan.h"
+
+1246004220 source:c:\users\d\documents\github\titan11_graphics\titan11\math\library\mathfunction.cpp
+	"MathFunction.h"
+
+1242434626 source:c:\users\d\documents\github\titan11_graphics\titan11\math\library\mathmatrix.cpp
+	"MathMatrix.h"
+
+1242434628 source:c:\users\d\documents\github\titan11_graphics\titan11\math\matrix\matrix.cpp
+	"Matrix.h"
+
+1409044961 source:c:\users\d\documents\github\titan11_graphics\titan11\utility\mouseviewctrl.cpp
+	"MouseViewCtrl.h"
+
+1411006122 source:c:\users\d\documents\github\titan11_graphics\main.cpp
+	<windows.h>
+	<commctrl.h>
+	<stdio.h>
+	"./titan11/Graphics/TitanGraphics.h"
+	"./titan11/Kinematics/Titan.h"
+	"./titan11/kinematics_util.h"
+	<GL/gl.h>
+	"GL/freeglut.h"
+	"resource.h"
+	"mouse_view.h"
+	"OGL.h"
+	"OGL2D.h"
+	"d_trajectory/d_robot_trajectory.h"
+
+1268028815 c:\users\d\documents\github\titan11_graphics\titan11\kinematics_util.h
+
+1066711260 c:\users\d\documents\github\titan11_graphics\gl\freeglut.h
+	"freeglut_std.h"
+	"freeglut_ext.h"
+
+1249904340 c:\users\d\documents\github\titan11_graphics\gl\freeglut_ext.h
+
+1411004958 source:c:\users\d\documents\github\titan11_graphics\d_trajectory\d_robot_trajectory.cpp
+	<stdio.h>
+	"d_trajectory.h"
+	"d_robot_trajectory.h"
+
+1410933363 c:\users\d\documents\github\titan11_graphics\d_trajectory\d_trajectory.h
+
+1411004965 c:\users\d\documents\github\titan11_graphics\d_trajectory\d_robot_trajectory.h
+
+1411006355 source:c:\users\d\documents\github\titan11_graphics\d_trajectory\d_trajectory.cpp
+	<stdio.h>
+	"d_trajectory.h"
+
