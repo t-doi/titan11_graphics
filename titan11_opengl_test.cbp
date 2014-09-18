@@ -45,6 +45,7 @@
 		<Unit filename="OGL2D.cpp" />
 		<Unit filename="OGL2D.h" />
 		<Unit filename="d_trajectory/d_robot_trajectory.cpp" />
+		<Unit filename="d_trajectory/d_robot_trajectory.h" />
 		<Unit filename="d_trajectory/d_trajectory.cpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="mouse_view.cpp" />
@@ -60,7 +61,9 @@
 		<Unit filename="titan11/Kinematics/Robot/Leg/Arm.cpp" />
 		<Unit filename="titan11/Kinematics/Robot/Leg/Leg.cpp" />
 		<Unit filename="titan11/Kinematics/Robot/Robot.cpp" />
+		<Unit filename="titan11/Kinematics/Robot/Robot.h" />
 		<Unit filename="titan11/Kinematics/Titan.cpp" />
+		<Unit filename="titan11/Kinematics/Titan.h" />
 		<Unit filename="titan11/Math/Library/MathFunction.cpp" />
 		<Unit filename="titan11/Math/Library/MathMatrix.cpp" />
 		<Unit filename="titan11/Math/Matrix/Matrix.cpp" />

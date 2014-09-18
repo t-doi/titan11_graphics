@@ -103,7 +103,18 @@ int RTget_trajectory(double t_in,
 
 	return 1;
 }
-//-------
+//------------------------------------
+//間歇クロール歩容スタンバイの配列セット
+void RTSetTrajectoryICCRAWL_standby(void)
+{
+    RTSetTrajectoryICCRAWL();
+    t_temp[1]=100;//適当．長い時間を入れる
+    x1_temp[1]=x1_temp[0];y1_temp[1]=y1_temp[0];z1_temp[1]=z1_temp[0];
+    x2_temp[1]=x2_temp[0];y2_temp[1]=y2_temp[0];z2_temp[1]=z2_temp[0];
+    x3_temp[1]=x3_temp[0];y3_temp[1]=y3_temp[0];z3_temp[1]=z3_temp[0];
+    x4_temp[1]=x4_temp[0];y4_temp[1]=y4_temp[0];z4_temp[1]=z4_temp[0];
+    t_temp[2]=-1;//第3要素に負の値を入れる→ここでストップ
+}
 //------------------------------------
 //間歇クロール歩容の配列セット
 void RTSetTrajectoryICCRAWL(void)
@@ -111,11 +122,14 @@ void RTSetTrajectoryICCRAWL(void)
 	double speed=1.0;//これの逆数でタイムスケジュールを決める
 	double dt=5.0/speed;//1動作の時間
 	double stride[3];//1歩のベクトル
-	double move1[]={-500,-500,0};//胴体推進時のベクトル1（胴体からみた脚先の動き）
-	double move2[]={-500,500,0};//胴体推進時のベクトル2（胴体からみた脚先の動き）
+	double move1[]={-600,-500,0};//胴体推進時のベクトル1（胴体からみた脚先の動き）
+	double move2[]={-600,500,0};//胴体推進時のベクトル2（胴体からみた脚先の動き）
+	//double move1[]={0,-500,0};//胴体推進時のベクトル1（胴体からみた脚先の動き）
+	//double move2[]={0,500,0};//胴体推進時のベクトル2（胴体からみた脚先の動き）
 	double height=800;//足を下に下げる量
+	double height_up=300;//初期状態で足を持ち上げる量
 	double swing_height=500;//遊脚高さ
-	double x0=2200;//脚１の軌道ベース点．ほかの脚はここに対して対称
+	double x0=2400;//脚１の軌道ベース点．ほかの脚はここに対して対称
 	double y0=1800;//脚１の軌道ベース点．ほかの脚はここに対して対称
 
 	stride[0]=-(move1[0]+move2[0]);
@@ -130,31 +144,53 @@ void RTSetTrajectoryICCRAWL(void)
 	//RTset_trajectory(1, 3,1,1, 1,1,1, 1,1,1, 1,1,1);
 	//return;//debug
 
-	//↓初期状態
-	RTset_trajectory(0*dt, x0+move2[0], y0+move2[1], height,		x0, -y0, height, 	-x0+move2[0], y0+move2[1], height, -x0, -y0, height);
+	//↓初期状態（足上げ）
+	//RTset_trajectory(0*dt, x0+move2[0], y0+move2[1], height_up,		x0, -y0, height_up, 	-x0+move2[0], y0+move2[1], height_up, -x0, -y0, height_up);
+
 
 	//↓立ち上がり
-	RTset_trajectory(1*dt, x0+move2[0], y0+move2[1], -height,		x0, -y0, -height, 	-x0+move2[0], y0+move2[1], -height, -x0, -y0, -height);
+	RTset_trajectory(0*dt, x0+move2[0], y0+move2[1], -height,		x0, -y0, -height, 	-x0+move2[0], y0+move2[1], -height, -x0, -y0, -height);
 
 	//↓脚３遊脚
-	RTset_trajectory(2*dt, x0+move2[0], y0+move2[1], -height,		x0, -y0, -height, 	-x0+move2[0], y0+move2[1], 0,		 -x0, -y0, -height);
+	RTset_trajectory(1*dt, x0+move2[0], y0+move2[1], -height,		x0, -y0, -height, 	-x0+move2[0], y0+move2[1], -height+swing_height,		 -x0, -y0, -height);
 
 	//↓脚３復帰
-	RTset_trajectory(3*dt, x0+move2[0], y0+move2[1], -height,		x0, -y0, -height, 	-x0+move2[0]+stride[0], y0+move2[1], 0,		 -x0, -y0, -height);
+	RTset_trajectory(2*dt, x0+move2[0], y0+move2[1], -height,		x0, -y0, -height, 	-x0+move2[0]+stride[0], y0+move2[1]+stride[1], -height+swing_height,		 -x0, -y0, -height);
 
 	//↓脚３下ろす
-	RTset_trajectory(4*dt, x0+move2[0], y0+move2[1], -height,		x0, -y0, -height, 	-x0+move2[0]+stride[0], y0+move2[1], -height,		 -x0, -y0, -height);
+	RTset_trajectory(3*dt, x0+move2[0], y0+move2[1], -height,		x0, -y0, -height, 	-x0+move2[0]+stride[0], y0+move2[1]+stride[1], -height,		 -x0, -y0, -height);
 
 	//↓脚１遊脚
-	RTset_trajectory(5*dt, x0+move2[0], y0+move2[1], 0,			x0, -y0, -height,	 	-x0+move2[0]+stride[0], y0+move2[1], -height,		 -x0, -y0, -height);
+	RTset_trajectory(4*dt, x0+move2[0], y0+move2[1], -height+swing_height,			x0, -y0, -height,	 	-x0+move2[0]+stride[0], y0+move2[1]+stride[1], -height,		 -x0, -y0, -height);
 
 	//↓脚１復帰
-	RTset_trajectory(6*dt, x0+move2[0]+stride[0], y0+move2[1], 0,		x0, -y0, -height,	 	-x0+move2[0]+stride[0], y0+move2[1], -height,		 -x0, -y0, -height);
+	RTset_trajectory(5*dt, x0+move2[0]+stride[0], y0+move2[1]+stride[1], -height+swing_height,		x0, -y0, -height,	 	-x0+move2[0]+stride[0], y0+move2[1]+stride[1], -height,		 -x0, -y0, -height);
 
 	//↓脚１下ろす
-	RTset_trajectory(7*dt, x0+move2[0]+stride[0], y0+move2[1], -height,		x0, -y0, -height,	 	-x0+move2[0]+stride[0], y0+move2[1], -height,		 -x0, -y0, -height);
+	RTset_trajectory(6*dt, x0+move2[0]+stride[0], y0+move2[1]+stride[1], -height,		x0, -y0, -height,	 	-x0+move2[0]+stride[0], y0+move2[1]+stride[1], -height,		 -x0, -y0, -height);
 
 	//↓胴体推進
-	RTset_trajectory(8*dt, x0, y0, -height,		x0+move1[0], -y0+move1[1], -height,	 	-x0, y0, -height,		 -x0+move1[0], -y0+move1[1], -height);
+	RTset_trajectory(7*dt, x0, y0, -height,		x0+move1[0], -y0+move1[1], -height,	 	-x0, y0, -height,		 -x0+move1[0], -y0+move1[1], -height);
+
+	//↓脚４遊脚
+	RTset_trajectory(8*dt, x0, y0, -height,		x0+move1[0], -y0+move1[1], -height,	 	-x0, y0, -height,		 -x0+move1[0], -y0+move1[1], -height+swing_height);
+
+	//↓脚４復帰
+	RTset_trajectory(9*dt, x0, y0, -height,		x0+move1[0], -y0+move1[1], -height,	 	-x0, y0, -height,		 -x0+move1[0]+stride[0], -y0+move1[1]+stride[1], -height+swing_height);
+
+	//↓脚４下ろす
+	RTset_trajectory(10*dt, x0, y0, -height,		x0+move1[0], -y0+move1[1], -height,	 	-x0, y0, -height,		 -x0+move1[0]+stride[0], -y0+move1[1]+stride[1], -height);
+
+	//↓脚２遊脚
+	RTset_trajectory(11*dt, x0, y0, -height,		x0+move1[0], -y0+move1[1], -height+swing_height,	 	-x0, y0, -height,		 -x0+move1[0]+stride[0], -y0+move1[1]+stride[1], -height);
+
+	//↓脚２復帰
+	RTset_trajectory(12*dt, x0, y0, -height,		x0+move1[0]+stride[0], -y0+move1[1]+stride[1], -height+swing_height,	 	-x0, y0, -height,		 -x0+move1[0]+stride[0], -y0+move1[1]+stride[1], -height);
+
+	//↓脚２下ろす
+	RTset_trajectory(13*dt, x0, y0, -height,		x0+move1[0]+stride[0], -y0+move1[1]+stride[1], -height,	 	-x0, y0, -height,		 -x0+move1[0]+stride[0], -y0+move1[1]+stride[1], -height);
+
+	//↓胴体推進
+	RTset_trajectory(14*dt, x0+move2[0], y0+move2[1], -height,		x0, -y0, -height,	 	-x0+move2[0], y0+move2[1], -height,		 -x0, -y0, -height);
 }
 

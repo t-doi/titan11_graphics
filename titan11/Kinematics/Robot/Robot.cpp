@@ -1,7 +1,7 @@
 /********************************************************************************
-**  
+**
 **	File:	 Robot.cpp
-** 
+**
 **	Description: TITAN XIの本体の運動学
 **
 **	Created: 2003/10/22(Wed)	Updated: 2005/03/10(Thu)
@@ -102,6 +102,7 @@ void Robot::CreateLegInstance(void)
 	for (int i=0; i<LEG_NUM; i++)
 	{
 		Legs[i]		= new Leg( (i+1), LEG_ROOT_POSX[i], LEG_ROOT_POSY[i], LEG_ROOT_POSZ[i], LEG_ROOT_ANGLE[i] );
+		//printf("debug-CreateLegInstance() LEG_ROOT_POSX[%d]=%.1f\n",i,LEG_ROOT_POSX[i]);//debug
 	}
 //printf("Robot::CreateLegInstance()\n");//071010 doi debug
 }
@@ -133,7 +134,7 @@ void Robot::InitRobotParameter(void)
 
 	for (int i=0; i<LEG_NUM; i++)
 		LegPH[i] = SUPPORT;
-	
+
 	Body.SetSize(DH_NUM, DH_NUM);
 	Body.LoadIdentity();
 
@@ -185,7 +186,7 @@ KINE Robot::SetBodyTransform(const Matrix& body)
 					// 新たな指示値で脚が到達できるかのチェック
 //					kine = SetLegConfiguration( (j+1), newLegEndPos[j] );
 					kine = SetFootConfiguration( (j+1), newLegEndPos[j] );
-		
+
 					// もし脚先が新しい指令値に到達できなかったら
 					if (kine != NoKineError)
 					{
@@ -205,7 +206,7 @@ KINE Robot::SetBodyTransform(const Matrix& body)
 
 					// 脚の失敗なし
 					LastLegErrID = 0;
-				
+
 				}
 			}
 			break;
@@ -216,7 +217,7 @@ KINE Robot::SetBodyTransform(const Matrix& body)
 				// 新たな指示値で脚が到達できるかのチェック
 				//kine = SetLegConfiguration( (k+1), newLegEndPos[k] );
 				kine = SetFootConfiguration( (k+1), newLegEndPos[k] );
-		
+
 				// もし脚先が新しい指令値に到達できなかったら
 				if (kine != NoKineError)
 				{
@@ -433,7 +434,7 @@ Robot::LegPhase Robot::GetLegPhase(int legID) const
 }
 
 /*************************************************************************************************************
-**  これより以下は脚のメンバ関数を呼び出し 
+**  これより以下は脚のメンバ関数を呼び出し
 *************************************************************************************************************/
 
 /*******************************************************************
@@ -456,7 +457,7 @@ KINE Robot::SetLegEndPos(int legID, const Matrix& endPos)
 	// グローバルから本体ローカルへ指示値を変換
 	position = TransformationGlobaltoLocal(endPos);
 	kine = Legs[legID-1]->SetEndPos(position);
-	
+
 	return (kine);
 }
 
@@ -482,11 +483,11 @@ KINE Robot::SetFootConfiguration(int legID, const Matrix& target)
 	goal = TransformationGlobaltoLocal(target);
 	double Zgoal=goal(3,4);//060808 doi
 	//double Ztarget=target(3,4);//060808 doi
-	if(Zgoal > 100000)
+	/*if(Zgoal > 100000)
 	{
-		goal = TransformationGlobaltoLocal(target);//debug
+		//goal = TransformationGlobaltoLocal(target);//debug
 		//int temp=0;//debug
-	}
+	}*/
 	kine = Legs[legID-1]->SetConfiguration(goal);
 
 	if ( kine != NoKineError)
@@ -704,7 +705,7 @@ Matrix Robot::GetLegTransformMatrix(int legID, int jntID) const
 	if ( !IsParamWithin(legID, 1, LEG_NUM) )
 	{
 		fprintf(stderr, "Robot::GetLegTransoformMatrix() Invalid Leg Number\n\n");
-		
+
 		return (IDENTITY_MATRIX_DH);
 	}
     //printf("Robot::GetTransformMatrix() LegID=%d\n", legID);//071010 doi debug
@@ -719,7 +720,7 @@ Matrix Robot::GetLegFootTransform(int legID) const
 	if ( !IsParamWithin(legID, 1, LEG_NUM) )
 	{
 		fprintf(stderr, "Robot::GetLegFootTransform() Invalid leg number\n\n");
-		
+
 		return (IDENTITY_MATRIX_DH);
 	}
 
@@ -734,7 +735,7 @@ Matrix Robot::GetLegFootForce(int legID) const
 	if ( !IsParamWithin(legID, 1, LEG_NUM) )
 	{
 		fprintf(stderr, "Robot::GetLegFootForce() Invalid leg number\n\n");
-		
+
 		return (ZERO_VECTOR_3);
 	}
 

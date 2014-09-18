@@ -1,7 +1,7 @@
 /*****************************************************************************
-**  
+**
 **	File:	  Leg.cpp
-** 
+**
 **	説明: TITAN XIの1脚制御用プログラム
 **
 **	Created: 2003/09/19(Fri)	Updated: 2005/01/14(Fri)
@@ -72,11 +72,11 @@ void Leg::InitLegParameter(void)
 	InvJacobian.SetSize(POS_DOF, POS_DOF);
 	JacobianL.SetSize(POS_DOF, POS_DOF);
 	InvJacobianL.SetSize(POS_DOF, POS_DOF);
-		
+
 	CldrLen.SetSize(JOINT_NUM);
 	CldrSpd.SetSize(JOINT_NUM);
 	CldrThrust.SetSize(JOINT_NUM);
-	
+
 	// シリンダに関する変数の初期化
 	CldrLen.LoadZero();
 	CldrSpd.LoadZero();
@@ -146,7 +146,7 @@ Matrix Leg::GetTransformMatrix(int jntID) const
 	if ( !IsParamWithin(jntID, 0, JOINT_NUM+1) )
 	{
 		fprintf(stderr, "Leg::GetTransformMatrix() Invalid Joint Number\n\n");
-		
+
 		return (IDENTITY_MATRIX_DH);
 	}
 
@@ -164,7 +164,7 @@ Matrix Leg::GetTransformMatrix(int jntID) const
 		case 2:
 			T = Transformation[jntID];
 			break;
-			
+
 		case 3:
 			T = Transformation[jntID];
 			break;
@@ -192,7 +192,7 @@ Matrix Leg::CoordinateTransformation(int jntID) const
 	if ( !IsParamWithin(jntID, 0, JOINT_NUM+1) )
 	{
 		fprintf(stderr, "Leg::CoordinateTransformation() Invalid Joint Number\n\n");
-		
+
 		return (IDENTITY_MATRIX_DH);
 	}
 
@@ -253,7 +253,7 @@ Matrix Leg::InvCoordinateTransformation(int jntID) const
 	if ( !IsParamWithin(jntID, 0, JOINT_NUM) )
 	{
 		fprintf(stderr, "Leg::InvCoordinateTransformation Invalid Joint Number\n\n");
-		
+
 		return (IDENTITY_MATRIX_DH);
 	}
 
@@ -359,10 +359,10 @@ KINE Leg::CalcInverseKinematics(void)
 	double temp;					// 第1関節角のデータ保持用
 	double C3, S3;					// 関節角度3によるsin, cos
 	double a, b, c, d;				// 関節角度2を計算するための一時的な変数
-	
+
 	Matrix Trans(DH_NUM, DH_NUM);	// 脚ベース座標系での脚先の同次変換行列
 	Trans.LoadIdentity();			// Control Point Status
-	
+
 	// // 脚ベース座標系に変換
 	Trans = InvCoordinateTransformation(0)*Foot;
 
@@ -372,12 +372,12 @@ KINE Leg::CalcInverseKinematics(void)
         double ZAnkle=Ankle(3,4);//060808 doi
         //double ZTrans=Trans(3,4);//060808 doi
         //double ZFoot=Foot(3,4);//060808 doi
-		if(ZAnkle>10000000)
+		/*if(ZAnkle>10000000)
 		{
 			printf("Leg::CalcInverseKinematics() ZAnkle=%.0f\n",ZAnkle);//debug
-		}
+		}*/
 
-    
+
 //	kine = CheckReachRange();
 //	kine = CheckReachRange(Foot);    //060720 doi
 	kine = CheckReachRange(Ankle);    //060720 doi    足首点でチェックする
@@ -429,7 +429,7 @@ KINE Leg::CalcInverseKinematics(void)
 
 		// 第2関節角を更新
 		JntAng(2) = atan2( (a*d-b*c), (a*c+b*d) );
-		
+
 		kine = CheckJointRange();
 	}
 
@@ -457,7 +457,7 @@ double Leg::GetJntAngFromEndPos(int jntID)
 	Trans.LoadIdentity();
 
 	kine = CheckReachRange();
-	
+
 	if (kine == KineErrSingular)
 	{
 		exit(1);
@@ -487,7 +487,7 @@ double Leg::GetJntAngFromEndPos(int jntID)
 		case 3:
 			C3 = (Trans(1,4)*Trans(1,4)+Trans(2,4)*Trans(2,4)+(Trans(3,4) - Link[0])*(Trans(3,4) - Link[0])
 							-Link[1]*Link[1]-Link[2]*Link[2])/(Link[1]*Link[2]);
-			
+
 			theta = atan2(-Indicator[1]*sqrt(1-C3*C3), C3);
 			break;
 
@@ -516,7 +516,7 @@ double Leg::GetJntAngFromEndPos(int jntID)
 			//break;
                         }
 	}
-  
+
   return theta;
 }
 
@@ -575,21 +575,21 @@ if(kine==NoKineError)return kine;//060719 doi.エラーが無い場合
 
     Foot=tmp;//060717 doi.エラーがある場合．
     return kine;
-    
+
     /*
 	switch (kine)
         {
 		case (NoKineError):
     		break;
-    	
+
     	case (KineErrReach):
     		Foot = tmp;
     		break;
-    	
+
     	case (KineErrSingular):
     		Foot = tmp;
     		break;
-    	
+
     	case (KineErrSome):
 			Foot = tmp;
 			break;
@@ -597,7 +597,7 @@ if(kine==NoKineError)return kine;//060719 doi.エラーが無い場合
 		default:
 			break;
     }
-  
+
 	return kine;
 */
 }
@@ -609,7 +609,7 @@ KINE Leg::SetJntAng(const Matrix& jntAng)
 {
 	Matrix tmp(JOINT_NUM);
 	KINE kine;
-	
+
 	// 要素数のチェック
 	if (jntAng.GetRow() != JOINT_NUM || jntAng.GetCol() != 1)
 	{
@@ -620,10 +620,10 @@ KINE Leg::SetJntAng(const Matrix& jntAng)
 	// 現在の関節角を一時的に保持
 	tmp = JntAng;
 	JntAng = jntAng;
-	
+
 	// 順運動学を解く
 	kine = CalcDirectKinematics();
-	
+
 	switch (kine)
     {
     	case (NoKineError):
@@ -636,7 +636,7 @@ KINE Leg::SetJntAng(const Matrix& jntAng)
     	case (KineErrSingular):
 			JntAng = tmp;
 			break;
-    		
+
     	case (KineErrSome):
 			JntAng = tmp;
                         break;
@@ -645,7 +645,7 @@ KINE Leg::SetJntAng(const Matrix& jntAng)
         		JntAng = tmp;//NoKineErrorでないので戻す．
 			break;
     }
-    
+
     return kine;
 
 }
@@ -668,7 +668,7 @@ KINE Leg::SetFootForce(const Matrix& force)
 {
 	Matrix tmp(POS_DOF);
 	KINE kine;
-	
+
 	// 要素数のチェック
 	if ( (force.GetRow() != POS_DOF) || (force.GetCol() != 1) )
 	{
@@ -718,7 +718,7 @@ int i=jntID-1;
 //  for (int i=0; i<JOINT_NUM; i++)
 	{
           //printf("CldrLen(%d+1)=%f\n",i,CldrLen(i+1));//debug
-          //printf("CldrLmtin[%d]=%f\n",i,CldrLmtMin[i]);//debug          
+          //printf("CldrLmtin[%d]=%f\n",i,CldrLmtMin[i]);//debug
         if ( (CldrLen(i+1) < CldrLmtMin[i]) )
 		{
 			LastJntErrNum = (i+1);
@@ -732,7 +732,7 @@ int i=jntID-1;
 			return (KineErrCylinderOverLimit);
 		}
 	}
-    
+
 	return (NoKineError);
 }
 
@@ -745,7 +745,7 @@ KINE Leg::CheckCylinderRange(void)
           if(kn!=NoKineError)
             return kn;
 	}
-    
+
 	return (NoKineError);
 }
 
@@ -815,7 +815,7 @@ KINE Leg::CheckCylinderThrust(void)
 *******************************************************************/
 void Leg::CalcJacobian(void)
 {
-	// シリンダ長さによる関節角の変化量(偏微分値)  
+	// シリンダ長さによる関節角の変化量(偏微分値)
 	double A[POS_DOF];
 
 	if (LegID == 2 || LegID == 3)
@@ -833,7 +833,7 @@ void Leg::CalcJacobian(void)
         }
 
 	A[1] = DiffArcCosine(CosLawtoAng(DTC9, DTC12, CldrLen(2)))*(-CldrLen(2)/(DTC9*DTC12));
-	
+
 	A[2] = DiffArcCosine(CosLawtoAng(DTC15, DTC18, CldrLen(3)))*(-CldrLen(3)/(DTC15*DTC18));
 
 	// シリンダ→関節角のヤコビを計算
@@ -1069,7 +1069,7 @@ KINE Leg::CalcLenFromAng(int jntID)
               ;
           }
   CldrLen(jntID)=len;
-  
+
 //	kine = CheckCylinderRange();
   	kine = CheckCylinderRange(jntID);
 
@@ -1083,7 +1083,7 @@ KINE Leg::CalcLenFromAng(void)
 {
 	KINE kine;
 //printf("---------CalcLenFromAng-----------\n");//debug
-  
+
 	for (int i=1; i<=JOINT_NUM; i++)
 	{
 		kine = CalcLenFromAng(i);
@@ -1108,7 +1108,7 @@ double Leg::GetInnerMotionRange(double height)
 
 	// 足首の高さに変換してから
 //	int param = RoundOff( (height+FOOT), 2);
-	int param = RoundOff( (height+FOOT), 1);    
+	int param = RoundOff( (height+FOOT), 1);
     //printf("GetInnerMotionRange():(height, param)=(%.2f, %d)\n",height, param);//debug
 	switch (param)
 	{
@@ -1261,7 +1261,7 @@ double Leg::GetOuterMotionRange(double height)
 
 	// 足首の高さに変換してから
 //	int param = RoundOff( (height+FOOT), 2);
-	int param = RoundOff( (height+FOOT), 1);    
+	int param = RoundOff( (height+FOOT), 1);
 
 	switch (param)
 	{

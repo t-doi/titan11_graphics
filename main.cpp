@@ -35,10 +35,10 @@ double WH_ratio;//画面の縦横比
 int W_Height=600;//ウインドウ高さ.描画で使う。
 int W_Width=900;//ウインドウ幅.描画で使う。
 
-char t11messagebuf[4][256];//各脚の状態表示
+char t11messagebuf[5][256];//各脚の状態表示
 char EnableWalkFlag=0;//歩行動作フラグ
 int CurrentTime=0;
-int TimerIntervalMsec=100;
+int TimerIntervalMsec=50;
 
 //-------------------
 void init_draw_titan()
@@ -47,8 +47,10 @@ void init_draw_titan()
 	TitanXI_1=new Titan;
 	TitanXI_0=new Titan;
 	//初期姿勢
-	TitanXI_1->SetLegPattern(0,Robot::RECTANGLE);
-	TitanXI_0->SetLegPattern(0,Robot::RECTANGLE);
+	//TitanXI_1->SetLegPattern(0,Robot::RECTANGLE);
+	//TitanXI_0->SetLegPattern(0,Robot::RECTANGLE);
+	TitanXI_1->SetLegPattern(0,Robot::RETRACT);
+	TitanXI_0->SetLegPattern(0,Robot::RETRACT);
 
 	TitanXIViewData.UpdateRobotData(*TitanXI_1);
 	TitanXIViewData.InitTitanData();
@@ -85,16 +87,18 @@ void disp_overlay( void ) //2D-overlay描画．マウスズームとは無関係にサイズ固定．
     void *font1=GLUT_BITMAP_9_BY_15;
     glRasterPos2d(-0.9,0.9);//画面座標でメッセージ表示位置指定
     //glutBitmapString(font1, reinterpret_cast<const unsigned char*>("Doi Robotics Lab."));
-    glutBitmapString(font1, (unsigned char *)("Doi Robotics Lab.2014.8.26"));
+    //glutBitmapString(font1, (unsigned char *)("Doi Robotics Lab.2014.8.26"));
 
-    glRasterPos2d(-0.9,0.8);//画面座標でメッセージ表示位置指定
+    glRasterPos2d(-0.9,0.9);//画面座標でメッセージ表示位置指定
     glutBitmapString(font1, (unsigned char *)(&t11messagebuf[0][0]));
-    glRasterPos2d(-0.9,0.7);//画面座標でメッセージ表示位置指定
+    glRasterPos2d(-0.9,0.8);//画面座標でメッセージ表示位置指定
     glutBitmapString(font1, (unsigned char *)(&t11messagebuf[1][0]));
-    glRasterPos2d(-0.9,0.6);//画面座標でメッセージ表示位置指定
+    glRasterPos2d(-0.9,0.7);//画面座標でメッセージ表示位置指定
     glutBitmapString(font1, (unsigned char *)(&t11messagebuf[2][0]));
-    glRasterPos2d(-0.9,0.5);//画面座標でメッセージ表示位置指定
+    glRasterPos2d(-0.9,0.6);//画面座標でメッセージ表示位置指定
     glutBitmapString(font1, (unsigned char *)(&t11messagebuf[3][0]));
+    glRasterPos2d(-0.9,0.5);//画面座標でメッセージ表示位置指定
+    glutBitmapString(font1, (unsigned char *)(&t11messagebuf[4][0]));
 
 
   glPopMatrix();
@@ -307,10 +311,18 @@ void mmotion(int x , int y) //マウス移動イベント
 }
 
 //-----------------------
+//アニメーション処理
 void timer1(int value)
 {
 	int interval=TimerIntervalMsec;
 	int res;
+	Matrix body_temp(4,4);
+
+	body_temp=TitanXI_1->GetBodyTransform();
+	sprintf((char*)(&t11messagebuf[4][0]),
+         "Body Pos(%.0f, %.0f, %.0f)-timer1()",
+         body_temp(1,4),body_temp(2,4),body_temp(3,4));
+
 	//ここにアニメーション処理を書く
 	if(EnableWalkFlag==1)
 	{
@@ -330,7 +342,8 @@ void timer1(int value)
 
 
         //軌道生成関数から取り出し
-        res=RTget_trajectory((CurrentTime*0.001),
+        double speed=10;
+        res=RTget_trajectory((CurrentTime*0.001*speed),
         &(p[0][0]), &(p[0][1]), &(p[0][2]),
         &(p[1][0]), &(p[1][1]), &(p[1][2]),
         &(p[2][0]), &(p[2][1]), &(p[2][2]),
@@ -340,6 +353,7 @@ void timer1(int value)
         {
             printf("timer1() Error RTget_trajectory()=%d, CurrentTime=%d\n",
                    res,CurrentTime);
+                   EnableWalkFlag=0;
             return;
         }
 
@@ -367,8 +381,8 @@ void timer1(int value)
         TitanXIViewData.UpdateRobotData(*TitanXI_1);
         display();
 
-	}
 	glutTimerFunc(interval,timer1,0);
+	}
 }
 //-----------------------
 void keyf(unsigned char key , int x , int y)//一般キー入力
@@ -384,9 +398,7 @@ void keyf(unsigned char key , int x , int y)//一般キー入力
             exit(0);
             break;
         }
-        default:
-        break;
-    case 'w':
+     case 'w':
     	{
     		if(EnableWalkFlag==0)
     		{
@@ -402,7 +414,26 @@ void keyf(unsigned char key , int x , int y)//一般キー入力
     			EnableWalkFlag=0;
 	    		printf("STOP Walk(EnableWalkFlag=%d)\n",EnableWalkFlag);
     		}
+    		break;
     	}
+    case 's'://スタンバイ
+    		if(EnableWalkFlag==0)
+    		{
+    			EnableWalkFlag=1;
+    			CurrentTime=0;
+    			RTSetTrajectoryICCRAWL_standby();//間歇クロール準備軌道セット
+    			printf("ICCRAWL-standby Set\n");
+    			printf("START Walk(EnableWalkFlag=%d)\n",EnableWalkFlag);
+    			glutTimerFunc(TimerIntervalMsec,timer1,0);
+    		}
+    		else
+    		{
+    			EnableWalkFlag=0;
+	    		printf("STOP Walk(EnableWalkFlag=%d)\n",EnableWalkFlag);
+    		}
+    		break;
+    default:
+        break;
     }
     glutPostRedisplay();
 }
@@ -488,8 +519,10 @@ glViewport(0,0,W_Width,W_Height);
 
 int main(int argc , char ** argv)
 {
-	printf("TITAN XI Simulator\n");
-	printf("------------------\n");
+	printf(" TITAN XI Simulator  \n");
+	printf("---------------------\n");
+	printf("press[s] to standby  \n");
+	printf("press[w] to walk/stop\n");
 
 	//TitanXIGra.InitOpenGL(hwndDlg);//最初の1回だけ
 	CreateDialog(hInstance2, MAKEINTRESOURCE(IDD_DIALOG1), NULL, DialogProc2);//ダイアログ２
@@ -497,18 +530,20 @@ int main(int argc , char ** argv)
 	int id;
 
  	glutInit(&argc , argv);
-	glutInitWindowPosition(100 , 50);
+	glutInitWindowPosition(200 , 50);
 	glutInitWindowSize((int)W_Width , (int)W_Height);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 
-	mv1.distance=20000;
-	mv1.azimuth=80;
+	mv1.distance=30000;
+	mv1.azimuth=170;
+	mv1.elevation=80;
 
 
 
-	id=glutCreateWindow("TITAN-XI GLUT test");
+	id=glutCreateWindow("TITAN-XI GLUT test 2014.9.18");
 
 	init_draw_titan();//TITAN 描画準備
+	InitKinematicsUtil();//運動学計算準備
 
 
 
@@ -517,7 +552,7 @@ int main(int argc , char ** argv)
 	glutSpecialFunc(keyf2);//特殊キー入力イベント
 	glutReshapeFunc(reshape);//再描画イベント
 	glutJoystickFunc(js_func,100);//ジョイスティックイベント
-	glutTimerFunc(TimerIntervalMsec,timer1,0);
+	//glutTimerFunc(TimerIntervalMsec,timer1,0);
 
 	glutMouseFunc(mbutton);//マウスボタン押し下げ、上げ
 	glutMotionFunc(mmotion);//マウス移動イベント

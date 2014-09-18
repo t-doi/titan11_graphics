@@ -19,6 +19,7 @@ int RTget_trajectory(double t_in,
 	double *x4_out,double *y4_out,double *z4_out
 );
 void RTSetTrajectoryICCRAWL(void);
+void RTSetTrajectoryICCRAWL_standby(void);//間歇クロールスタンバイ
 
 #endif
 

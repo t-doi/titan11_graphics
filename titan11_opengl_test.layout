@@ -1,19 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="d_trajectory\d_trajectory.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="11119" topLine="316" />
+			<Cursor1 position="2347" topLine="71" />
 		</Cursor>
 	</File>
-	<File name="d_trajectory\d_robot_trajectory.cpp" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="titan11\kinematics_util.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3228" topLine="109" />
+			<Cursor1 position="554" topLine="9" />
 		</Cursor>
 	</File>
-	<File name="d_trajectory\d_trajectory.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="d_trajectory\d_robot_trajectory.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2347" topLine="69" />
+			<Cursor1 position="725" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="titan11\Kinematics\Robot\Leg\Leg.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="985" topLine="4" />
+		</Cursor>
+	</File>
+	<File name="titan11\Kinematics\Robot\Robot.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2545" topLine="87" />
+		</Cursor>
+	</File>
+	<File name="titan11\Kinematics\Titan.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="383" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="titan11\Kinematics\Robot\Robot.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="891" topLine="81" />
+		</Cursor>
+	</File>
+	<File name="d_trajectory\d_robot_trajectory.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3651" topLine="108" />
+		</Cursor>
+	</File>
+	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="17370" topLine="527" />
+		</Cursor>
+	</File>
+	<File name="titan11\Kinematics\Robot\Leg\Arm.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="558" topLine="2" />
+		</Cursor>
+	</File>
+	<File name="titan11\Kinematics\Titan.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="432" topLine="6" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
